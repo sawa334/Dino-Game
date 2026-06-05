@@ -3,6 +3,7 @@ package com.mygdx.game.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.game.GameSettings;
@@ -12,6 +13,7 @@ public class DinoObject extends GameObject {
     public DinoObject(int x, int y, int width, int height, String texturePath, World world) {
         super(texturePath, x, y, width, height, GameSettings.SHIP_BIT, world);
         body.setLinearDamping(10);
+        body.setGravityScale(50);
         livesLeft = 3;
     }
     private void putInFrame() {
@@ -21,12 +23,8 @@ public class DinoObject extends GameObject {
         if (getY() <= (height / 2f)) {
             setY(height / 2);
         }
-        if (getX() < (-width / 2f)) {
-            setX(GameSettings.SCREEN_WIDTH);
-        }
-        if (getX() > (GameSettings.SCREEN_WIDTH + width / 2f)) {
-            setX(0);
-        }
+
+        setX(180);
     }
     @Override
     public void draw(SpriteBatch batch) {
