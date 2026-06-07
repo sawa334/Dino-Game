@@ -13,9 +13,11 @@ public class GameSettings {
 
     public static final int SHIP_WIDTH = 150;
     public static final int SHIP_HEIGHT = 150;
-    public static final float SHIP_FORCE_RATIO = 50;
-    public static final float TRASH_VELOCITY = 10;
-    public static final float STARTING_TRASH_APPEARANCE_COOL_DOWN = 2000;
+    public static final float SHIP_FORCE_RATIO = 10000;
+
+    public static final long JUMP_COOL_DOWN = 1500;
+    public static final float TRASH_VELOCITY = 50;
+    public static final float STARTING_TRASH_APPEARANCE_COOL_DOWN = 1500;
     public static final int TRASH_WIDTH = 140;
     public static final int TRASH_HEIGHT = 100;
 
@@ -28,6 +30,8 @@ public class GameSettings {
     public static final short TRASH_BIT = 1;
     public static final short SHIP_BIT = 2;
     public static final short BULLET_BIT = 4;
+
+    public static final short GROUND_BIT = 8;
     public static final int STARTING_ENEMY_APPEARANCE_COOL_DOWN = 100;
     public static final int ASTEROID_WIDTH = 140;
     public static final int ASTEROID_HEIGHT = 140;

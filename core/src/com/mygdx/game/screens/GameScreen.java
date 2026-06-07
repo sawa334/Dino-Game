@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.components.ButtonView;
 import com.mygdx.game.components.RecordsListView;
@@ -19,6 +20,7 @@ import com.mygdx.game.components.TextView;
 import com.mygdx.game.managers.MemoryManager;
 import com.mygdx.game.objects.DinoObject;
 import com.mygdx.game.game.GameResources;
+import com.mygdx.game.objects.GroundObject;
 import com.mygdx.game.objects.StoneObject;
 
 
@@ -47,6 +49,7 @@ public class GameScreen extends ScreenAdapter {
     TextView recordsTextView;
     RecordsListView recordsListView;
     ButtonView homeButton2;
+    GroundObject ground;
 
 
 
@@ -54,6 +57,7 @@ public class GameScreen extends ScreenAdapter {
 
     private void updateStones() {
         for (int i = 0; i < stonesArray.size(); i++) {
+            stonesArray.get(i).putInFrame();
             boolean hasToBeDestroyed = !stonesArray.get(i).isAlive() || !stonesArray.get(i).isInFrame();
 
             if (!stonesArray.get(i).isAlive()) {
@@ -83,6 +87,7 @@ public class GameScreen extends ScreenAdapter {
         homeButton = new ButtonView(500, 350, 150, 50, myGdxGame.commonWhiteFont, GameResources.BUTTON_BACKGROUND_SHORT_IMG_PATH, "Home");
         continueButton = new ButtonView(700, 350, 150, 50, myGdxGame.commonWhiteFont, GameResources.BUTTON_BACKGROUND_SHORT_IMG_PATH, "Continue");
         pauseTextView = new TextView(myGdxGame.commonWhiteFont, 640, 500, "Pause");
+        ground = new GroundObject(GameSettings.SCREEN_WIDTH, 0, myGdxGame.world);
 
         contactManager = new ContactManager(myGdxGame.world);
         scoreTextView = new TextView(myGdxGame.commonWhiteFont, 1000, 600);
@@ -164,7 +169,7 @@ public class GameScreen extends ScreenAdapter {
                     if (pauseButton.isHit(myGdxGame.touch.x, myGdxGame.touch.y)) {
                         gameSession.pauseGame();
                     }
-                    dinoObject.move(myGdxGame.touch);
+                    dinoObject.jump();
                     break;
 
                 case PAUSED:

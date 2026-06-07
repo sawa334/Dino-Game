@@ -1,8 +1,11 @@
 package com.mygdx.game.objects;
 
+import static com.mygdx.game.game.GameSettings.JUMP_COOL_DOWN;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -12,14 +15,14 @@ public class DinoObject extends GameObject {
     public int livesLeft;
     public DinoObject(int x, int y, int width, int height, String texturePath, World world) {
         super(texturePath, x, y, width, height, GameSettings.SHIP_BIT, world);
-        body.setLinearDamping(10);
-        body.setGravityScale(50);
+        body.setLinearDamping(0);
+        body.setGravityScale(20);
+        MassData  m = new MassData();
+        m.mass = 1;
+        body.setMassData(m);
         livesLeft = 3;
     }
     private void putInFrame() {
-        if (getY() > (GameSettings.SCREEN_HEIGHT / 2f - height / 2f)) {
-            setY(GameSettings.SCREEN_HEIGHT / 2 - height / 2);
-        }
         if (getY() <= (height / 2f)) {
             setY(height / 2);
         }
@@ -31,15 +34,21 @@ public class DinoObject extends GameObject {
         putInFrame();
         super.draw(batch);
     }
+    private long lastJump = 0;
 
-    public  void  move(Vector3 vector3){
+    public  void  jump(){
+        if(lastJump + JUMP_COOL_DOWN > System.currentTimeMillis()){
+            return;
+        }
+        lastJump = System.currentTimeMillis();
         body.applyForceToCenter(
-                new Vector2(
-                        (vector3.x - getX()) * GameSettings.SHIP_FORCE_RATIO,
-                        (vector3.y - getY()) * GameSettings.SHIP_FORCE_RATIO
+                 new Vector2(
+                        0,
+                         GameSettings.SHIP_FORCE_RATIO
                 ),
                 true
         );
+      //  body.setLinearVelocity(0, GameSettings.SHIP_FORCE_RATIO);
 
     }
     @Override

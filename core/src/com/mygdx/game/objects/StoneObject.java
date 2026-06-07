@@ -8,23 +8,29 @@ import java.util.Random;
 
 public class StoneObject extends GameObject {
 
-    private static final int paddingHorizontal = 30;
+
     private int livesLeft;
     public StoneObject( int width, int height,String texturePath, World world, int lives) {
         super(texturePath,
-                width / 2 + paddingHorizontal + (new Random()).nextInt((GameSettings.SCREEN_WIDTH - 2 * paddingHorizontal - width)),
-                GameSettings.SCREEN_HEIGHT + height / 2,
+                GameSettings.SCREEN_WIDTH + width / 2,
+                height / 2,
                 width, height,
                 GameSettings.TRASH_BIT,
                 world
         );
-        body.setLinearVelocity(new Vector2(0, -GameSettings.TRASH_VELOCITY));
+        body.setLinearVelocity(new Vector2(-GameSettings.TRASH_VELOCITY, 0 ));
         livesLeft = lives;
 
     }
 
     public boolean isInFrame() {
-        return getY() + height / 2 > 0;
+        return getX() + width / 2 > 0;
+    }
+
+    public void putInFrame(){
+        if(getY() <= height / 2 ){
+            setY(height / 2);
+        }
     }
 
     @Override
