@@ -12,15 +12,16 @@ public class MovingBackgroundView extends View {
     int texture2X;  // изменено с Y на X
     int speed = 2;
 
-    public MovingBackgroundView(String pathToTexture) {
+    public MovingBackgroundView(String pathToTexture,  int speed) {
         super(0, 0);
+        this.speed = speed;
         texture1X = 0;
         texture2X = GameSettings.SCREEN_WIDTH;  // изменено с HEIGHT на WIDTH
         texture = new Texture(pathToTexture);
     }
 
     public void move() {
-        texture1X -= speed;  // движение влево
+        texture1X -= speed;
         texture2X -= speed;
 
         if(texture1X <= -GameSettings.SCREEN_WIDTH){
@@ -40,4 +41,5 @@ public class MovingBackgroundView extends View {
     public void dispose(){
         texture.dispose();
     }
+
 }

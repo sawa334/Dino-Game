@@ -31,7 +31,7 @@ public class MenuScreen extends ScreenAdapter {
 
         titleView = new TextView(myGdxGame.largeWhiteFont, 540, 590, "Cat Jump");
 
-        backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH);
+        backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH, 0);
     }
 
 

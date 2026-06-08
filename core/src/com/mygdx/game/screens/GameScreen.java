@@ -51,6 +51,8 @@ public class GameScreen extends ScreenAdapter {
     ButtonView homeButton2;
     GroundObject ground;
 
+    MovingBackgroundView sand;
+
 
 
 
@@ -87,7 +89,7 @@ public class GameScreen extends ScreenAdapter {
         homeButton = new ButtonView(500, 350, 150, 50, myGdxGame.commonWhiteFont, GameResources.BUTTON_BACKGROUND_SHORT_IMG_PATH, "Home");
         continueButton = new ButtonView(700, 350, 150, 50, myGdxGame.commonWhiteFont, GameResources.BUTTON_BACKGROUND_SHORT_IMG_PATH, "Continue");
         pauseTextView = new TextView(myGdxGame.commonWhiteFont, 640, 500, "Pause");
-        ground = new GroundObject(GameSettings.SCREEN_WIDTH, 0, myGdxGame.world);
+        ground = new GroundObject(GameSettings.SCREEN_WIDTH, -25, myGdxGame.world);
 
         contactManager = new ContactManager(myGdxGame.world);
         scoreTextView = new TextView(myGdxGame.commonWhiteFont, 1000, 600);
@@ -95,7 +97,8 @@ public class GameScreen extends ScreenAdapter {
         stonesArray = new ArrayList<>();
 
 
-        backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH);
+        backgroundView = new MovingBackgroundView(GameResources.BACKGROUND_IMG_PATH, 2);
+        sand = new MovingBackgroundView(GameResources.BACKGROUND_ZEMLE_PATH, 8);
 
 
 
@@ -150,6 +153,7 @@ public class GameScreen extends ScreenAdapter {
 
             updateStones();
             backgroundView.move();
+            sand.move();
             gameSession.updateScore();
             scoreTextView.setText("Score: " + gameSession.getScore());
             liveView.setLeftLives(dinoObject.getLiveLeft());
@@ -215,6 +219,7 @@ public class GameScreen extends ScreenAdapter {
 
         myGdxGame.batch.begin();
         backgroundView.draw(myGdxGame.batch);
+        sand.draw(myGdxGame.batch);
         dinoObject.draw(myGdxGame.batch);
 
         for (StoneObject trash : stonesArray) trash.draw(myGdxGame.batch);

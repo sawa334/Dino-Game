@@ -20,6 +20,8 @@ public class GameResources {
 
     public static final String BLACKOUT_TOP_IMG_PATH = "textures/blackout_top.png";
     public static final String BLACKOUT_MIDDLE_IMG_PATH = "textures/blackout_middle.png";
+    public static final String BACKGROUND_ZEMLE_PATH = "textures/sand.png";
+
 
 
 }
